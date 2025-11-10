@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0nfja0ibtjat"]
+
+[ext_resource type="PackedScene" uid="uid://dnx5nci63dbmk" path="res://objects/player.tscn" id="1_04m43"]
+[ext_resource type="PackedScene" uid="uid://drgmog1gbkaum" path="res://objects/tile_map.tscn" id="1_ci758"]
+[ext_resource type="PackedScene" uid="uid://5yxcbfr6uech" path="res://objects/effects.tscn" id="3_8qw37"]
+[ext_resource type="PackedScene" uid="uid://dcta0hbq746bj" path="res://objects/npc.tscn" id="4_m1bvv"]
+[ext_resource type="PackedScene" uid="uid://dail5offrt48s" path="res://objects/shroom_stompers.tscn" id="5_58lhp"]
+[ext_resource type="Script" uid="uid://cealmw52384iv" path="res://objects/shroomstomperscontroller.gd" id="6_im0th"]
+
+[node name="forest" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_ci758")]
+
+[node name="Effects" parent="." instance=ExtResource("3_8qw37")]
+
+[node name="npc" parent="." instance=ExtResource("4_m1bvv")]
+position = Vector2(589, -463)
+
+[node name="Player" parent="." instance=ExtResource("1_04m43")]
+position = Vector2(576, -417)
+speed = 120.0
+
+[node name="ShroomStompers" parent="." instance=ExtResource("5_58lhp")]
+script = ExtResource("6_im0th")

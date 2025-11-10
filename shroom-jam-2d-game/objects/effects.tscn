@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://5yxcbfr6uech"]
+
+[ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="1_6vmcc"]
+[ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="2_vdlah"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mfpej"]
+shader = ExtResource("1_6vmcc")
+shader_parameter/enable_vhs = true
+shader_parameter/scanline_count = 216.6670055416825
+shader_parameter/scanline_strength = 0.0170000008075
+shader_parameter/noise_strength = 0.0870000041325
+shader_parameter/glitch_intensity = 0.1330000063175
+shader_parameter/roll_speed = 0.0
+shader_parameter/roll_amount = 0.0
+shader_parameter/tape_crease = 0.10000000475
+shader_parameter/signal_loss = 0.1200000057
+shader_parameter/chromatic_aberration = 1.850000087875
+shader_parameter/curvature = 0.0
+shader_parameter/vignette_strength = 0.70000003325
+shader_parameter/creep_tint = 1.0000000475
+shader_parameter/time_scale = 1.0
+
+[node name="Effects" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_mfpej")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vdlah")
