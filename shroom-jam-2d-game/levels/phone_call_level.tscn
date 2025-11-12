@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b631onvn4svqg"]
+[gd_scene load_steps=10 format=3 uid="uid://b631onvn4svqg"]
 
 [ext_resource type="Texture2D" uid="uid://bbpi16mw35imb" path="res://assets/voicecall_interface.png" id="1_g1ljk"]
 [ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="2_g1ljk"]
 [ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="3_mre6j"]
+[ext_resource type="AudioStream" uid="uid://ucra8v44n5m2" path="res://assets/raw_audio.mp3" id="4_g1ljk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vgdcs"]
 shader = ExtResource("2_g1ljk")
@@ -127,7 +128,7 @@ offset_right = 23.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Start"
+text = "Skip"
 script = SubResource("GDScript_u20iv")
 metadata/_edit_use_anchors_ = true
 
@@ -135,5 +136,11 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 &"": SubResource("AnimationLibrary_u84ys")
 }
+
+[node name="voice_call" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_g1ljk")
+volume_db = -2.019
+pitch_scale = 0.89
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="phone_call"]
