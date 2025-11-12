@@ -13,9 +13,9 @@
 [node name="Effects" parent="." instance=ExtResource("3_8qw37")]
 
 [node name="npc" parent="." instance=ExtResource("4_m1bvv")]
-position = Vector2(589, -463)
+position = Vector2(667, -356)
 dialogue = ExtResource("4_58lhp")
 
 [node name="Player" parent="." instance=ExtResource("1_04m43")]
-position = Vector2(576, -417)
+position = Vector2(656, -307)
 speed = 120.0
