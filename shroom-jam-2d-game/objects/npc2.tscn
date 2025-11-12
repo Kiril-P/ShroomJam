@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://n75dbgf4edvv"]
+
+[ext_resource type="Script" uid="uid://drxso3wdssdoj" path="res://scripts/npc.gd" id="1_nd604"]
+[ext_resource type="Texture2D" uid="uid://dyjb14s8n1uq3" path="res://assets/RPG Top Down Characters - Free Version/Blonde Man/blonde_man_shadow.png" id="2_nd604"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4skv"]
+atlas = ExtResource("2_nd604")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbfua"]
+atlas = ExtResource("2_nd604")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rtck"]
+atlas = ExtResource("2_nd604")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6q68"]
+atlas = ExtResource("2_nd604")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xqyt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4skv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbfua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rtck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6q68")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha4x0"]
+size = Vector2(8, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6mthy"]
+radius = 15.0
+
+[node name="npc" type="CharacterBody2D"]
+script = ExtResource("1_nd604")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1xqyt")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7887253
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_ha4x0")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_6mthy")

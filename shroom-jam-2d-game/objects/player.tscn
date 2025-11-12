@@ -311,7 +311,7 @@ autoplay = "idle_down"
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="ActionableFinder" type="Area2D" parent="." groups=["player"]]
 position = Vector2(0, 5)

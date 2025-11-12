@@ -1,11 +1,10 @@
 ~ start
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Second one
-	Nathan: You picked the second one.
-- Start again => start
-- End the conversation => END
-Nathan: For more information see the online documentation.
-=> END
+Penelope: WELCOME to CLARAS forest adventures, a fun game where you play the best minigames with your favorite people!
+Penelope: This is rodgers
+Rodgers: sup dude
+Penelope: and this is ophelia!
+Ophelia: Hiya there!
+Ethan: oh uh hey guys, great to meet you
+Penelope: SADLY clara could not join us for todays FOREST ADVENTURES, however youre just in like because we have 3 amazing unique minigames for today. Make your way to the right for the first minigame and let us know how you do!
+Ethan: oh uh, thanks penelope, of course.
+=> END!

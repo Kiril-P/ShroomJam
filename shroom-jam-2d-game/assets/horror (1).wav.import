@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bo1rxqjc5hqvx"
+path="res://.godot/imported/horror (1).wav-edc0fd2553f70779a97e80346a0354f5.sample"
+
+[deps]
+
+source_file="res://assets/horror (1).wav"
+dest_files=["res://.godot/imported/horror (1).wav-edc0fd2553f70779a97e80346a0354f5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
