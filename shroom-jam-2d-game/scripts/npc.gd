@@ -1,29 +1,22 @@
-extends Node2D
+extends CharacterBody2D
 
-@export var dialogue_resource: DialogueResource
+@export var dialogue: DialogueResource
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
-@onready var interaction_area: Area2D = $InteractionArea
-
-func _ready() -> void:
-	# SAFEST WAY — preload the .tres file
-	if not dialogue_resource:
-		dialogue_resource = preload("res://dialogue/woman.dialogue.tres")
-
-# This function is called by player
 func trigger_interaction() -> void:
-	if not dialogue_resource:
-		push_error("No dialogue resource!")
-		return
+	print("[NPC] Starting dialogue...")
+	DialogueManager.show_example_dialogue_balloon(dialogue)
 	
-	DialogueManager.show_example_dialogue_balloon(dialogue_resource, "")
+	if anim:
+		anim.play("talk")
 	
-	var balloon = DialogueManager.show_example_dialogue_balloon(dialogue_resource)
+	set_process(false)
+	set_physics_process(false)
 	
-	# Find player and freeze
-	var player = get_tree().get_first_node_in_group("player")  # ← Add player to group "player"!
-	if player:
-		player.set_dialogue_active(true)
-		balloon.dialogue_ended.connect(func(_res):
-			player.set_dialogue_active(false)
-		)
-		
+	DialogueManager.dialogue_ended.connect(_on_dialogue_end, CONNECT_ONE_SHOT)
+
+func _on_dialogue_end(_res):
+	set_process(true)
+	set_physics_process(true)
+	if anim:
+		anim.play("idle")

@@ -325,6 +325,7 @@ sources/5 = SubResource("TileSetAtlasSource_hymln")
 sources/6 = SubResource("TileSetAtlasSource_p12ek")
 
 [node name="TileMap" type="TileMap"]
+position = Vector2(80, 105)
 tile_set = SubResource("TileSet_ue58t")
 format = 2
 layer_0/name = "1_ground"

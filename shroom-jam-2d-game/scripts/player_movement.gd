@@ -1,42 +1,45 @@
+# player.gd — FINAL WORKING VERSION
 extends CharacterBody2D
 
 @export var speed: float = 60.0
 @onready var sprite: AnimatedSprite2D = %sprite
-@onready var actionable_finder: Area2D = $ActionableFinder  # Add this node!
+@onready var actionable_finder: Area2D = $ActionableFinder
 
-var facing := "down"  # "down", "up", or "right" (right = left when flipped)
-var is_in_dialogue := false  # Prevent movement during talk
+var facing := "down"
+var is_in_dialogue := false
+var nearby_npcs: Array = []
 
 func _ready() -> void:
-	# Ensure ActionableFinder exists
-	if not has_node("ActionableFinder"):
-		push_error("ActionableFinder (Area2D) missing! Add it as child of player.")
+	if not actionable_finder:
+		push_error("ActionableFinder missing!")
 		return
+	
+	# Connect to area_entered (NOT body_entered)
+	actionable_finder.area_entered.connect(_on_area_entered)
+	actionable_finder.area_exited.connect(_on_area_exited)
+	
+	DialogueManager.dialogue_started.connect(_on_dialogue_start)
+	DialogueManager.dialogue_ended.connect(_on_dialogue_end)
 
-func _physics_process(_delta: float) -> void:
-	# Skip movement if in dialogue
+func _physics_process(delta):
 	if is_in_dialogue:
 		velocity = Vector2.ZERO
 		return
 
-	var input := Vector2.ZERO
+	var input = Vector2.ZERO
 	if Input.is_action_pressed("move_right"): input.x += 1
-	if Input.is_action_pressed("move_left"):  input.x -= 1
-	if Input.is_action_pressed("move_down"):  input.y += 1
-	if Input.is_action_pressed("move_up"):    input.y -= 1
+	if Input.is_action_pressed("move_left"): input.x -= 1
+	if Input.is_action_pressed("move_down"): input.y += 1
+	if Input.is_action_pressed("move_up"): input.y -= 1
 
-	# Direction lock
 	if input != Vector2.ZERO:
-		if abs(input.x) > abs(input.y):
-			input.y = 0
-		else:
-			input.x = 0
+		if abs(input.x) > abs(input.y): input.y = 0
+		else: input.x = 0
 		input = input.normalized()
 
 	velocity = input * speed
 	move_and_slide()
 
-	# ANIMATION
 	if velocity != Vector2.ZERO:
 		if velocity.x != 0:
 			facing = "right"
@@ -50,24 +53,34 @@ func _physics_process(_delta: float) -> void:
 			sprite.play("walk_up")
 	else:
 		match facing:
-			"right":
-				sprite.flip_h = sprite.flip_h  # keep last flip
-				sprite.play("idle_right")
-			"down":
-				sprite.play("idle_down")
-			"up":
-				sprite.play("idle_up")
+			"right": sprite.play("idle_right")
+			"down": sprite.play("idle_down")
+			"up": sprite.play("idle_up")
 
-# Handle interaction input
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_interact") and not is_in_dialogue:
-		var actionables = actionable_finder.get_overlapping_areas()
-		if actionables.size() > 0:
-			var npc = actionables[0].get_parent()
-			if npc and npc.has_method("trigger_interaction"):
-				npc.trigger_interaction()
-			get_viewport().set_input_as_handled()
+func _unhandled_input(event):
+	if event.is_action_pressed("move_interact") and not is_in_dialogue and nearby_npcs.size() > 0:
+		var npc = nearby_npcs[0]
+		print("[PLAYER] TRIGGERING: ", npc.name)
+		npc.trigger_interaction()
+		get_viewport().set_input_as_handled()
 
-# Called by NPC balloon to pause/resume player
-func set_dialogue_active(active: bool) -> void:
-	is_in_dialogue = active
+# === AREA DETECTION (NOT BODY) ===
+func _on_area_entered(area: Area2D):
+	var npc = area.get_parent()
+	if npc and npc.has_method("trigger_interaction") and npc not in nearby_npcs:
+		nearby_npcs.append(npc)
+		print("[PLAYER] NPC DETECTED: ", npc.name)
+
+func _on_area_exited(area: Area2D):
+	var npc = area.get_parent()
+	if npc in nearby_npcs:
+		nearby_npcs.erase(npc)
+		print("[PLAYER] NPC LEFT: ", npc.name)
+
+func _on_dialogue_start(_res):
+	is_in_dialogue = true
+	print("[PLAYER] DIALOGUE STARTED")
+
+func _on_dialogue_end(_res):
+	is_in_dialogue = false
+	print("[PLAYER] DIALOGUE ENDED")
