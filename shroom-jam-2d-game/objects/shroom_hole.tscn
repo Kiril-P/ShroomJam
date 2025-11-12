@@ -1,9 +1,58 @@
-[gd_scene load_steps=21 format=3 uid="uid://qc3w4s0sgv4"]
+[gd_scene load_steps=21 format=3 uid="uid://dmdyja38xvw5s"]
 
-[ext_resource type="Script" uid="uid://bt5bctnwq6xnr" path="res://scripts/mushroom.gd" id="1_tjsea"]
 [ext_resource type="Texture2D" uid="uid://b4p1ojt0jcpro" path="res://assets/Shoom/Sprites/Shoom_Peek.png" id="2_erywb"]
 [ext_resource type="Texture2D" uid="uid://n4njarjbkenj" path="res://assets/Shoom/Sprites/Shoom_Pop.png" id="3_xsmcp"]
 [ext_resource type="Texture2D" uid="uid://b4qxpvt7fj54j" path="res://assets/Shoom/Sprites/Shoom_Idle.png" id="4_b5ni7"]
+
+[sub_resource type="GDScript" id="GDScript_vwj5v"]
+script/source = "extends Area2D
+class_name ShroomHole
+
+@export var pop_delay_min: float = 1.0
+@export var pop_delay_max: float = 3.0
+@export var is_bad_shroom: bool = true
+
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+var is_popped: bool = false
+var pop_timer: Timer
+
+signal shroom_whacked(is_good_whack: bool)
+
+func _ready():
+	body_entered.connect(_on_player_entered)
+	sprite.play(\"hiding\")
+	
+	if is_bad_shroom:
+		new_pop_cycle()
+
+func new_pop_cycle():
+	pop_timer = Timer.new()
+	add_child(pop_timer)
+	pop_timer.wait_time = randf_range(pop_delay_min, pop_delay_max)
+	pop_timer.one_shot = true
+	pop_timer.timeout.connect(_pop_up)
+	pop_timer.start()
+
+func _pop_up():
+	if is_popped: return
+	is_popped = true
+	sprite.play(\"idling\")
+
+func _on_player_entered(body):
+	if body.name == \"Player\":
+		if is_popped:  # GOOD WHACK
+			audio.play()
+			sprite.play(\"hiding\")
+			is_popped = false
+			shroom_whacked.emit(true)
+			await get_tree().create_timer(0.5).timeout
+			if is_bad_shroom:
+				new_pop_cycle()
+		else:  # BAD WHACK
+			shroom_whacked.emit(false)
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_by03t"]
 atlas = ExtResource("2_erywb")
@@ -144,7 +193,7 @@ animations = [{
 radius = 22.0
 
 [node name="ShroomHole" type="Area2D"]
-script = ExtResource("1_tjsea")
+script = SubResource("GDScript_vwj5v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dg5sh")
