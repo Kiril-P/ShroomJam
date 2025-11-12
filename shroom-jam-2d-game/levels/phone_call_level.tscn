@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b631onvn4svqg"]
+[gd_scene load_steps=9 format=3 uid="uid://b631onvn4svqg"]
 
 [ext_resource type="Texture2D" uid="uid://bbpi16mw35imb" path="res://assets/voicecall_interface.png" id="1_g1ljk"]
 [ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="2_g1ljk"]
+[ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="3_mre6j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vgdcs"]
 shader = ExtResource("2_g1ljk")
@@ -101,6 +102,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_mre6j")
 metadata/_edit_use_anchors_ = true
 
 [node name="fade_transition" type="ColorRect" parent="CanvasLayer"]

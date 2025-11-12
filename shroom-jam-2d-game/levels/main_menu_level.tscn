@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmkto0yv5idmp"]
+[gd_scene load_steps=10 format=3 uid="uid://cmkto0yv5idmp"]
 
 [ext_resource type="Texture2D" uid="uid://ceglc3o3j3twk" path="res://assets/backgroundimagemenu.jpg" id="1_a0bpi"]
 [ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="2_ftkqg"]
+[ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="3_ftkqg"]
+[ext_resource type="AudioStream" uid="uid://bqr52vgukijtf" path="res://assets/retro.wav" id="3_u84ys"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3ujo"]
 shader = ExtResource("2_ftkqg")
@@ -90,17 +92,20 @@ texture = ExtResource("1_a0bpi")
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -188.25
-offset_top = 63.0
-offset_right = 188.25
-offset_bottom = 212.0
+anchor_bottom = 0.5
+offset_left = -291.1217
+offset_top = -248.0
+offset_right = 291.1217
+offset_bottom = 42.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[center][fade start=0 length=80][wave amp=30 freq=4][tornado radius=3 freq=2][rainbow freq=0.1 sat=0.9 val=1.0]Clara’s Forest Adventures[/rainbow][/tornado][/wave][/fade][/center]"
 
@@ -111,6 +116,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_ftkqg")
 metadata/_edit_use_anchors_ = true
 
 [node name="fade_transition" type="ColorRect" parent="CanvasLayer"]
@@ -129,12 +135,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -1.0
-offset_right = 48.709656
-offset_bottom = 55.0
+offset_left = -82.036865
+offset_top = 41.0
+offset_right = 82.036865
+offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 51
 text = "Start"
 script = SubResource("GDScript_a0bpi")
 
@@ -142,5 +149,11 @@ script = SubResource("GDScript_a0bpi")
 libraries = {
 &"": SubResource("AnimationLibrary_u84ys")
 }
+
+[node name="main_menu" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_u84ys")
+volume_db = -2.019
+pitch_scale = 0.89
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_pressed"]

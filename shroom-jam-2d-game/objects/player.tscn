@@ -293,7 +293,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uxov2"]
-radius = 20.506096
+radius = 15.508062
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_uxov2")
