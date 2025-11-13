@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmkto0yv5idmp"]
+[gd_scene load_steps=11 format=3 uid="uid://cmkto0yv5idmp"]
 
 [ext_resource type="Texture2D" uid="uid://ceglc3o3j3twk" path="res://assets/backgroundimagemenu.jpg" id="1_a0bpi"]
 [ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="2_ftkqg"]
 [ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="3_ftkqg"]
 [ext_resource type="AudioStream" uid="uid://bqr52vgukijtf" path="res://assets/retro.wav" id="3_u84ys"]
+[ext_resource type="Theme" uid="uid://viwpof7rqn5" path="res://assets/default1.tres" id="4_1bgdx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3ujo"]
 shader = ExtResource("2_ftkqg")
@@ -141,6 +142,7 @@ offset_right = 82.036865
 offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_1bgdx")
 theme_override_font_sizes/font_size = 51
 text = "Start"
 script = SubResource("GDScript_a0bpi")

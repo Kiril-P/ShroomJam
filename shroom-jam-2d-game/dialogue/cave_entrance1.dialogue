@@ -1,0 +1,11 @@
+~ start
+Penelope: [wave]Beware the Cragfall Cavern, traveler![/wave]
+Penelope: Rocks fall from the ceiling... endlessly.
+Penelope: One hit and you're done. No mercy.
+Penelope: Enter if you dare... or turn back now.
+- Enter the cave
+	Penelope: Foolish... but brave.
+	Penelope: Survive 30 seconds... if you can. => END!
+- Too scary
+	Penelope: Wise choice, coward. Live another day.
+	Penelope: The cave claims all who enter. => END!

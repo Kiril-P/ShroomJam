@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b631onvn4svqg"]
+[gd_scene load_steps=11 format=3 uid="uid://b631onvn4svqg"]
 
 [ext_resource type="Texture2D" uid="uid://bbpi16mw35imb" path="res://assets/voicecall_interface.png" id="1_g1ljk"]
+[ext_resource type="Script" uid="uid://6wrjmyxdx6m3" path="res://scripts/voice_call.gd" id="1_p2b1i"]
 [ext_resource type="Shader" uid="uid://cholrla8h0v5a" path="res://objects/vhs_crt.gdshader" id="2_g1ljk"]
 [ext_resource type="Script" uid="uid://ci8viwihbqvno" path="res://scripts/toggle_shader.gd" id="3_mre6j"]
 [ext_resource type="AudioStream" uid="uid://ucra8v44n5m2" path="res://assets/raw_audio.mp3" id="4_g1ljk"]
@@ -85,6 +86,7 @@ _data = {
 }
 
 [node name="PhoneCallLevel" type="Node2D"]
+script = ExtResource("1_p2b1i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -118,14 +120,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_left = 0.69861114
+anchor_left = 0.7402778
 anchor_top = 0.5825
 anchor_right = 0.7736111
-anchor_bottom = 0.6591667
-offset_left = -23.0
-offset_top = -15.5
-offset_right = 23.0
-offset_bottom = 15.5
+anchor_bottom = 0.62108016
+offset_left = 201.19995
+offset_top = -328.46
+offset_right = 247.19989
+offset_bottom = -297.45993
 grow_horizontal = 2
 grow_vertical = 2
 text = "Skip"
@@ -137,10 +139,22 @@ libraries = {
 &"": SubResource("AnimationLibrary_u84ys")
 }
 
+[node name="SubtitleLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -373.0
+offset_top = 419.0
+offset_right = 367.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+
 [node name="voice_call" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_g1ljk")
-volume_db = -2.019
+volume_db = 2.0
 pitch_scale = 0.89
-autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="phone_call"]

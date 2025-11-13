@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0nfja0ibtjat"]
+[gd_scene load_steps=15 format=3 uid="uid://d0nfja0ibtjat"]
 
 [ext_resource type="PackedScene" uid="uid://dnx5nci63dbmk" path="res://objects/player.tscn" id="1_04m43"]
 [ext_resource type="PackedScene" uid="uid://drgmog1gbkaum" path="res://objects/tile_map.tscn" id="1_ci758"]
@@ -6,42 +6,69 @@
 [ext_resource type="Resource" uid="uid://ft3o5dgschll" path="res://dialogue/npc1.dialogue" id="4_58lhp"]
 [ext_resource type="PackedScene" uid="uid://dcta0hbq746bj" path="res://objects/npc.tscn" id="4_m1bvv"]
 [ext_resource type="PackedScene" uid="uid://n75dbgf4edvv" path="res://objects/npc2.tscn" id="5_im0th"]
-[ext_resource type="AudioStream" uid="uid://bsfn7ew8rt8jn" path="res://assets/friendly_beat.wav" id="7_fwmjj"]
+[ext_resource type="Resource" uid="uid://bvhbm2igrqa8y" path="res://dialogue/cave_entrance1.dialogue" id="6_aa8vv"]
+[ext_resource type="AudioStream" uid="uid://bqr52vgukijtf" path="res://assets/retro.wav" id="8_cd5wg"]
 [ext_resource type="AudioStream" uid="uid://c2r2ps5fwmr7s" path="res://assets/nature_birds.wav" id="8_ji5g4"]
 [ext_resource type="AudioStream" uid="uid://bo1rxqjc5hqvx" path="res://assets/horror (1).wav" id="9_3m0pa"]
 [ext_resource type="AudioStream" uid="uid://xtvbpjq5r86o" path="res://assets/horror (1).mp3" id="10_6qnhg"]
+[ext_resource type="Script" uid="uid://b6dym4lqoxlve" path="res://scripts/cave_entrance.gd" id="11_cd5wg"]
+[ext_resource type="Texture2D" uid="uid://xbjcs6yrholj" path="res://assets/cave_entrance1.png" id="12_aa8vv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_caym0"]
+radius = 17.0
 
 [node name="forest" type="Node2D"]
 
 [node name="TileMap" parent="." instance=ExtResource("1_ci758")]
 
-[node name="Effects" parent="." instance=ExtResource("3_8qw37")]
+[node name="CaveEntrance" type="Area2D" parent="."]
+position = Vector2(598.7, 151.28)
+script = ExtResource("11_cd5wg")
 
-[node name="npc" parent="." instance=ExtResource("4_m1bvv")]
+[node name="Sprite2D" type="Sprite2D" parent="CaveEntrance"]
+position = Vector2(1.1444092e-05, 2.000002)
+scale = Vector2(0.093537405, 0.093537405)
+texture = ExtResource("12_aa8vv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveEntrance"]
+position = Vector2(-0.7000122, 6.720001)
+shape = SubResource("CircleShape2D_caym0")
+
+[node name="npcs" type="Node" parent="."]
+
+[node name="npc" parent="npcs" instance=ExtResource("4_m1bvv")]
 position = Vector2(667, -356)
 dialogue = ExtResource("4_58lhp")
 
-[node name="npc2" parent="." instance=ExtResource("5_im0th")]
+[node name="npc3" parent="npcs" instance=ExtResource("4_m1bvv")]
+position = Vector2(662, 144)
+dialogue = ExtResource("6_aa8vv")
+
+[node name="npc2" parent="npcs" instance=ExtResource("5_im0th")]
 position = Vector2(626, -349)
 dialogue = ExtResource("4_58lhp")
 
 [node name="Player" parent="." instance=ExtResource("1_04m43")]
-position = Vector2(656, -307)
-speed = 120.0
+z_index = 1
+position = Vector2(79, 105)
 
-[node name="friendly_music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_fwmjj")
-autoplay = true
+[node name="music" type="Node" parent="."]
 
-[node name="birds_bg" type="AudioStreamPlayer2D" parent="."]
+[node name="bg_music" type="AudioStreamPlayer2D" parent="music"]
+stream = ExtResource("8_cd5wg")
+
+[node name="birds_bg" type="AudioStreamPlayer2D" parent="music"]
 stream = ExtResource("8_ji5g4")
 autoplay = true
 
-[node name="horror_music" type="AudioStreamPlayer2D" parent="."]
+[node name="horror_music" type="AudioStreamPlayer2D" parent="music"]
 stream = ExtResource("9_3m0pa")
+autoplay = true
 
-[node name="horror_bg" type="AudioStreamPlayer2D" parent="."]
+[node name="horror_bg" type="AudioStreamPlayer2D" parent="music"]
 stream = ExtResource("10_6qnhg")
 volume_db = -2.019
 pitch_scale = 0.89
 parameters/looping = true
+
+[node name="Effects" parent="." instance=ExtResource("3_8qw37")]
