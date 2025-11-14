@@ -33,7 +33,7 @@ func _spawn_rock():
 	get_parent().add_child(rock)
 	active_rocks.append(rock)
 	
-	# **4-SECOND CLEANUP** — Delete after 4 seconds
+	# **Cleanup of rocks
 	await get_tree().create_timer(2.5).timeout
 	if is_instance_valid(rock):
 		rock.queue_free()
@@ -45,6 +45,5 @@ func kill_player():
 	get_tree().current_scene.add_child(fade)
 	fade.get_node("AnimationPlayer").play("fade_in")
 	await fade.get_node("AnimationPlayer").animation_finished
-	print("FADE OUT COMPLETE — LOADING FOREST...")
 	get_tree().change_scene_to_file("res://levels/forest_level.tscn")
 	fade.queue_free()

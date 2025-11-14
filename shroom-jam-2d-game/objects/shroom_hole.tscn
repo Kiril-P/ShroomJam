@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmdyja38xvw5s"]
+
+[ext_resource type="Script" uid="uid://dqpsyasfvk3j3" path="res://scripts/shroom_hole.gd" id="1_lvbhw"]
+[ext_resource type="Texture2D" uid="uid://b4p1ojt0jcpro" path="res://assets/Shoom/Sprites/Shoom_Peek.png" id="2_apnac"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwj5v"]
+atlas = ExtResource("2_apnac")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpmvb"]
+atlas = ExtResource("2_apnac")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3shy1"]
+atlas = ExtResource("2_apnac")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cstvv"]
+atlas = ExtResource("2_apnac")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6e5vw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwj5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpmvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3shy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cstvv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvbhw"]
+
+[node name="ShroomHole" type="Area2D"]
+script = ExtResource("1_lvbhw")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(0.390625, 0.390625)
+sprite_frames = SubResource("SpriteFrames_6e5vw")
+frame = 1
+frame_progress = 0.33240688
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lvbhw")

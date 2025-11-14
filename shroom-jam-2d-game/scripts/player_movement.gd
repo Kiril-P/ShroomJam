@@ -84,3 +84,12 @@ func _on_dialogue_start(_res):
 func _on_dialogue_end(_res):
 	is_in_dialogue = false
 	print("[PLAYER] DIALOGUE ENDED")
+
+func _input(event):
+	if event.is_action_pressed("move_interact"):
+		for area in actionable_finder.get_overlapping_areas():
+			if area.has_method("whack"):
+				print("WHACKING SHROOM!")
+				area.whack()
+				get_viewport().set_input_as_handled()
+				break
